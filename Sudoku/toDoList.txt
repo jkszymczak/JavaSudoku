@@ -1,0 +1,2 @@
+ w klasie SudokuBoard dodać metodę solve costam
+ testy zrobic, bo nie ruszalem
