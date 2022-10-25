@@ -1,7 +1,5 @@
 package pl.first.firstjava;
 
-import java.util.Random;
-
 public class SudokuBoard {
     // atributes
     private static int size = 9;
@@ -13,74 +11,16 @@ public class SudokuBoard {
         return board;
     }
 
-    private void zeroBoard() {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                board[i][j] = 0;
-            }
-        }
+    public int get(int x, int y) {
+        return board[x][y];
     }
 
-    public void setFirstRow() {
-        zeroBoard();
-        Random los = new Random();
-        for (int i = 0; i < size; i++) {
-            do {
-                int var = los.nextInt(size) + 1;
-                board[0][i] = var;
-            } while (checkRepetetive(board[0][i], i));
-        }
+    public void set(int x, int y, int value) {
+        board[x][y] = value;
     }
 
-    public void fillBoard() {
-        setFirstRow();
-        if (!solveSudoku(board, 0, 0)) {
-         System.out.print("Nie mozliwe jest rozwiazanie sudoku!");
-        }
-    }
 
-    static boolean solveSudoku(int[][] grid, int row, int column) {
-
-        //jesli zostanie osiagniety koniec planszy sudoku to zwracamy true
-        if (row == size - 1 && column == size) {
-            return true;
-        }
-
-
-        //jesli column osiagnie wartosc 9 to zmieniamy rzad row na kolejny, i zmieniamy kolumne na 0
-        if (column == size) {
-            row++;
-            column = 0;
-        }
-
-
-        //jesli obecna komorka zawiera juz wartosc rozna od 0, to przeskakujemy do nastepnej kolumny
-        if (grid[row][column] != 0) {
-            return solveSudoku(grid, row, column + 1);
-        }
-
-
-        for (int number = 1; number < 10; number++) {
-
-            //sprawdzamy, czy mozna w dana komorke wstawic liczbe
-            if (isSafe(grid, row, column, number)) {
-
-                //jesli mozna wstawic liczbe, to to robimy
-                grid[row][column] = number;
-
-                //rekurencja
-                if (solveSudoku(grid, row, column + 1)) {
-                    return true;
-                }
-
-            }
-            //jesli nie mozna wtawic liczby number, zerujemy komorke;
-            grid[row][column] = 0;
-        }
-        return false;
-    }
-
-    static boolean isSafe(int[][] grid, int row, int column, int num) {
+    static boolean checkBoard(int[][] grid, int row, int column, int num) {
 
         //sprawdzamy, czy jest powtorzenie w rzedzie row, jesli jest, zwracamy false
         for (int y = 0; y <= 8; y++) {
@@ -109,14 +49,6 @@ public class SudokuBoard {
         return true;
     }
 
-    private boolean checkRepetetive(int var, int place) {
-        for (int i = 0; i < place; i++) {
-            if (var == board[0][i]) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     public void printBoard() {
         for (int i = 0; i < size; i++) {
