@@ -1,2 +1,3 @@
- w klasie SudokuBoard dodać metodę solve costam
- testy zrobic, bo nie ruszalem
+dodałem metode solveGame do SudokuBoard, chyba mamy wszystko z zadania poza testami,
+dodatkowo zrobiłem lekki refactoring SolveSudoku by wykorzystywać metody get i set a nie kopiować całej tablicy, 
+jedyne co z zadania zostało poza testami to ogarnąć jak z wypełnianiem pierwszego rzędu, na ten moment wsadziłem to do SolveGame

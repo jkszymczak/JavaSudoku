@@ -1,5 +1,7 @@
 package pl.first.firstjava;
 
+import java.util.Random;
+
 public class SudokuBoard {
     // atributes
     private static int size = 9;
@@ -15,48 +17,50 @@ public class SudokuBoard {
     public int get(int x, int y) {
         return board[x][y];
     }
+    //end of getters
 
-    //setters
+    // setters
     public void set(int x, int y, int value) {
         board[x][y] = value;
     }
+    //end of setters
 
-    public void solveGame(SudokuSolver solver){
+    public void solveGame(SudokuSolver solver) {
 
+        setFirstRow();
         solver.solve(this);
 
     }
 
+    boolean checkBoard(int row, int column, int num) {
 
-    static boolean checkBoard(int[][] grid, int row, int column, int num) {
-
-        //sprawdzamy, czy jest powtorzenie w rzedzie row, jesli jest, zwracamy false
+        // sprawdzamy, czy jest powtorzenie w rzedzie row, jesli jest, zwracamy false
         for (int y = 0; y <= 8; y++) {
-            if (grid[row][y] == num) {
+            if (board[row][y] == num) {
                 return false;
             }
         }
 
-        //sprawdzamy, czy jest powtorzenie w kolumnie col, jesli jest, zwracamy false
+        // sprawdzamy, czy jest powtorzenie w kolumnie col, jesli jest, zwracamy false
         for (int x = 0; x <= 8; x++) {
-            if (grid[x][column] == num) {
+            if (board[x][column] == num) {
                 return false;
             }
         }
 
-        //sprawdzamy, czy jest powtorzenie w odpowiednim kwadracie 3x3, jesli jest, zwracamy false
+        // sprawdzamy, czy jest powtorzenie w odpowiednim kwadracie 3x3, jesli jest,
+        // zwracamy false
         int startRow = row - row % 3;
         int startCol = column - column % 3;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (grid[i + startRow][j + startCol] == num) {
+                if (board[i + startRow][j + startCol] == num) {
                     return false;
                 }
             }
         }
         return true;
     }
-
 
     public void printBoard() {
         for (int i = 0; i < size; i++) {
@@ -78,5 +82,23 @@ public class SudokuBoard {
             }
         }
     }
-}
 
+    public void setFirstRow() {
+        Random los = new Random();
+        for (int i = 0; i < size; i++) {
+            do {
+                int var = los.nextInt(size) + 1;
+                board[0][i] = var;
+            } while (checkRepetetive(board[0][i], i));
+        }
+    }
+
+    private boolean checkRepetetive(int var, int place) {
+        for (int i = 0; i < place; i++) {
+            if (var == board[0][i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+}

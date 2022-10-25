@@ -12,8 +12,9 @@ public class SudokuBoardTest {
     public void testRandom() {
         SudokuBoard firstGame = new SudokuBoard();
         SudokuBoard secondGame = new SudokuBoard();
-        firstGame.fillBoard();
-        secondGame.fillBoard();
+        SudokuSolver solver = new BacktrackingSudokuSolver();
+        firstGame.solveGame(solver);
+        secondGame.solveGame(solver);
         assertFalse(areEqual(firstGame.getBoard(), secondGame.getBoard()));
     }
 
@@ -21,7 +22,8 @@ public class SudokuBoardTest {
     public void testArrangement() {
 
         SudokuBoard sudoku = new SudokuBoard();
-        sudoku.fillBoard();
+        SudokuSolver solver = new BacktrackingSudokuSolver();
+        sudoku.solveGame(solver);
         assertTrue(checkLines(sudoku.getBoard()));
         assertTrue(checkColumns(sudoku.getBoard()));
         assertTrue(checkSquares(sudoku.getBoard()));
@@ -30,13 +32,12 @@ public class SudokuBoardTest {
 
     private boolean areEqual(int[][] first, int[][] second) {
         for (int i = 0; i < second.length; i++) {
-            for (int j = 0; j < second.length; j++) {
-                System.out.println("first ->" + first[i][j] + " second ->" + second[i][j]);
-                if (first[i][j] != second[i][j])
-                    return false;
+            if (!Arrays.equals(first[i], second[i])) {
+                return false;
             }
         }
         return true;
+
     }
 
     private boolean checkLines(int[][] lines) {
@@ -74,11 +75,10 @@ public class SudokuBoardTest {
             for (int j = 0; j < 3; j++) {
                 for (int x = 0; x < 3; x++) {
                     for (int k = 0; k < 3; k++) {
-                        if (numbersCheck[squares[x + (i * 3)][k + (j * 3)]-1]) {
+                        if (numbersCheck[squares[x + (i * 3)][k + (j * 3)] - 1]) {
                             return false;
                         }
-                        numbersCheck[squares[x + i * 3][k + j * 3]-1] = true;
-
+                        numbersCheck[squares[x + i * 3][k + j * 3] - 1] = true;
 
                     }
                     Arrays.fill(numbersCheck, false);
