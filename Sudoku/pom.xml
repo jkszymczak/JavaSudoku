@@ -9,7 +9,16 @@
     <name>00_${project.artifactId}-${project.version}</name>
 
     <url>http://maven.apache.org</url>
-
+    <developers>
+        <!-- pamiętaj dodać siebie Krystian-->
+        <developer>
+            <id>242548</id>
+            <name>Jakub Szymczak</name>
+            <email>242548@edu.p.lodz.pl</email>
+        </developer>
+    </developers>
+    <!-- tu trzeba ogarnąć jaką grupe mamy konkretnie-->
+    <description>Projekt grupy laboratoryjnej mkw1201</description>
     <reporting>
         <plugins>
             <plugin>
@@ -45,6 +54,16 @@
                         </reports>
                     </reportSet>
                 </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>3.1.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.16.0</version>
             </plugin>
         </plugins>
     </reporting>
@@ -102,6 +121,7 @@
                     </execution>
                     <execution>
                         <id>default-report</id>
+                        <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>

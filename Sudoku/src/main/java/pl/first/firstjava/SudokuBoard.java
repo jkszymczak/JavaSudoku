@@ -7,6 +7,7 @@ public class SudokuBoard {
     private int[][] board = new int[size][size];
 
     // metodes
+    // getters
     public int[][] getBoard() {
         return board;
     }
@@ -15,8 +16,15 @@ public class SudokuBoard {
         return board[x][y];
     }
 
+    //setters
     public void set(int x, int y, int value) {
         board[x][y] = value;
+    }
+
+    public void solveGame(SudokuSolver solver){
+
+        solver.solve(this);
+
     }
 
 
