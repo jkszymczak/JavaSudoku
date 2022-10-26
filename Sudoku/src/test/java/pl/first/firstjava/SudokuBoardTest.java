@@ -30,6 +30,11 @@ public class SudokuBoardTest {
 
     }
 
+    @Test
+    public void testPrint(){
+        SudokuBoard sudoku = new SudokuBoard();
+        assertFalse(sudoku.printBoard().isEmpty());
+    }
     private boolean areEqual(int[][] first, int[][] second) {
         for (int i = 0; i < second.length; i++) {
             if (!Arrays.equals(first[i], second[i])) {

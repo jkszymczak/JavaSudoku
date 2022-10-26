@@ -1,5 +1,7 @@
 package pl.first.firstjava;
 
+import java.util.Random;
+
 public class BacktrackingSudokuSolver implements SudokuSolver {
 
     private static int size = 9;
@@ -33,11 +35,13 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
 
         for (int number = 1; number < 10; number++) {
 
-            // sprawdzamy, czy mozna w dana komorke wstawic liczbe
-            if (board.checkBoard(row, column, number)) {
+            // losujemy liczbe 1-9 i sprawdzamy czy możemy ją wstawić
+            Random random = new Random();
+            int shoot = random.nextInt(9) + 1;
+            if (board.checkBoard(row, column, shoot)) {
 
                 // jesli mozna wstawic liczbe, to to robimy
-                board.set(row, column, number);
+                board.set(row, column, shoot);
 
                 // rekurencja
                 if (solveSudoku(row, column + 1, board)) {
