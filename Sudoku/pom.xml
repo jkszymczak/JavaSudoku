@@ -10,7 +10,11 @@
 
     <url>http://maven.apache.org</url>
     <developers>
-        <!-- pamiętaj dodać siebie Krystian-->
+        <developer>
+            <id>242510</id>
+            <name>Krystian Romkowski</name>
+            <email>242510@edu.p.lodz.pl</email>
+        </developer>
         <developer>
             <id>242548</id>
             <name>Jakub Szymczak</name>
@@ -18,7 +22,7 @@
         </developer>
     </developers>
     <!-- tu trzeba ogarnąć jaką grupe mamy konkretnie-->
-    <description>Projekt grupy laboratoryjnej mkw1201</description>
+    <description>Projekt grupy laboratoryjnej MB_CZ_1800_02</description>
     <reporting>
         <plugins>
             <plugin>

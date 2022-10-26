@@ -3,3 +3,4 @@ dodatkowo zrobiłem lekki refactoring SolveSudoku by wykorzystywać metody get i
 jedyne co z zadania zostało poza testami to ogarnąć jak z wypełnianiem pierwszego rzędu, na ten moment wsadziłem to do SolveGame
 z zadania wszystko zrobione(chyba) przejżyj jeszcze raz czy wszystko jest leigit, pamiętaj o uzupełnieniu pom.xm(chodzi o sekcje developers)
 PRZED WRZUCENIEM NA WIKAMPA ZAKOMENTUJ CAŁEGO MAINA I SPRAWDZ RAPORT JACOCO CZY DAJE 100% CODE COVERAGE
+----------------^do wywalenia przed zad 3^--------------
