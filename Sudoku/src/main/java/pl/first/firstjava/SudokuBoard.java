@@ -3,6 +3,7 @@ package pl.first.firstjava;
 public class SudokuBoard {
     // atributes
     private static int size = 9;
+    SudokuSolver solver;
 
     private int[][] board = new int[size][size];
 
@@ -10,6 +11,14 @@ public class SudokuBoard {
     // getters
     public int[][] getBoard() {
         return board;
+    }
+
+    public SudokuBoard(SudokuSolver sudokuSolver) {
+
+        this.solver = sudokuSolver;
+    }
+    public SudokuBoard(){
+        
     }
 
     public int get(int x, int y) {
