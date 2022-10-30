@@ -6,6 +6,7 @@ public class SudokuBoard {
     SudokuSolver solver;
 
     private int[][] board = new int[size][size];
+    private SudokuField[][] complexBoard = new SudokuField[size][size];
 
     // metodes
     // getters
@@ -17,12 +18,31 @@ public class SudokuBoard {
 
         this.solver = sudokuSolver;
     }
-    public SudokuBoard(){
-        
+
+    public SudokuBoard() {
+
     }
 
     public int get(int x, int y) {
         return board[x][y];
+    }
+
+    public SudokuRow getRow(int y) {
+
+        SudokuRow row = new SudokuRow();
+        return row;
+    }
+
+    public SudokuColumn getColumn(int x) {
+        SudokuColumn column = new SudokuColumn();
+        return column;
+
+    }
+
+    public SudokuBox getBox(int x, int y) {
+        SudokuBox box = new SudokuBox();
+        return box;
+
     }
     // end of getters
 
@@ -84,7 +104,7 @@ public class SudokuBoard {
                     // System.out.print("| ");
                     printed += "| ";
                 }
-                //System.out.print(board[i][j] + " ");
+                // System.out.print(board[i][j] + " ");
                 printed += board[i][j] + " ";
                 if (j % 3 == 2) {
                     // System.out.print("| ");
