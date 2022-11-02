@@ -3,12 +3,18 @@ package pl.first.firstjava;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * SudokuField
- */
 public class SudokuField {
 
     private int value;
+
+    public SudokuField() {
+
+    }
+
+    public SudokuField(int value) {
+        this.value = value;
+    }
+
     private Set<SudokuChecker> checkers = new HashSet<>();
 
     public int getFieldValue() {

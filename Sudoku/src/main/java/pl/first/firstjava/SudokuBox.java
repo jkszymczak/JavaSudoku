@@ -1,10 +1,7 @@
 package pl.first.firstjava;
 
-/**
- * SudokuBox
- */
 public class SudokuBox extends SudokuChecker {
-    public SudokuBox(SudokuField[] fields){
+    public SudokuBox(SudokuField[] fields) {
         super(fields);
     }
 

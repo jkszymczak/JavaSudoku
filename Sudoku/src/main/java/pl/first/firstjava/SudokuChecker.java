@@ -1,12 +1,10 @@
 package pl.first.firstjava;
 
-/**
- * SudokuChecker
- */
 public abstract class SudokuChecker {
     protected SudokuField[] field;
-    public SudokuChecker(SudokuField[] fields){
-        this.field=fields;
+
+    public SudokuChecker(SudokuField[] fields) {
+        this.field = fields;
     }
 
     public boolean verify() {

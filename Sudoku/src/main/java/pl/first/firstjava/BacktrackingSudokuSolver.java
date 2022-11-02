@@ -8,9 +8,7 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
 
     @Override
     public void solve(SudokuBoard board) {
-
         solveSudoku(0, 0, board);
-
     }
 
     static boolean solveSudoku(int row, int column, SudokuBoard board) {
@@ -38,7 +36,7 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
             // losujemy liczbe 1-9 i sprawdzamy czy możemy ją wstawić
             Random random = new Random();
             int shoot = random.nextInt(9) + 1;
-            if (board.set(row, column, shoot)) {
+            if (board.checkBoard(row, column, shoot)) {
 
                 // jesli mozna wstawic liczbe, to to robimy
                 // board.set(row, column, shoot);
@@ -51,7 +49,9 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
             }
             // jesli nie mozna wtawic liczby number, zerujemy komorke;
             board.set(row, column, 0);
+
         }
         return false;
     }
 }
+

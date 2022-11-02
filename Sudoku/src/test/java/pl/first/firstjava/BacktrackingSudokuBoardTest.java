@@ -16,10 +16,8 @@ public class BacktrackingSudokuBoardTest {
         SudokuBoard board = new SudokuBoard();
         SudokuSolver solver = new BacktrackingSudokuSolver();
         fillFirstRow(board);
-        int[] check = {1,2,3,4,5,6,7,8,9};
         board.solveGame(solver);
-        assertTrue(Arrays.equals(board.getBoard()[0], check));
-
+        assertTrue(!board.checkBoard(0,0,1));
     }
     private void fillFirstRow(SudokuBoard board){
         for (int i=0;i<9;i++){

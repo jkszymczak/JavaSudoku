@@ -1,98 +1,69 @@
-
 package pl.first.firstjava;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class SudokuBoardTest {
+class SudokuBoardTest {
+
     @Test
-    public void testRandom() {
-        SudokuBoard firstGame = new SudokuBoard();
-        SudokuBoard secondGame = new SudokuBoard();
-        SudokuSolver solver = new BacktrackingSudokuSolver();
-        firstGame.solveGame(solver);
-        secondGame.solveGame(solver);
-        assertFalse(areEqual(firstGame.getBoard(), secondGame.getBoard()));
+    void get_set() {
+        SudokuBoard gettest = new SudokuBoard();
+        gettest.set(0, 0, 2);
+        assertTrue(gettest.get(0 , 0) == 2);
     }
 
     @Test
-    public void testArrangement() {
+    void getRow() {
+        SudokuBoard sudoku = new SudokuBoard();
+        assertNotNull(sudoku.getRow(2));
 
+    }
+
+    @Test
+    void getColumn() {
+        SudokuBoard sudoku = new SudokuBoard();
+        assertNotNull(sudoku.getColumn(2));
+    }
+
+    @Test
+    void getBox() {
+        SudokuBoard sudoku = new SudokuBoard();
+        assertNotNull(sudoku.getBox(1, 1));    }
+    @Test
+    void testSudokuBoard() {
+        SudokuSolver solver = new BacktrackingSudokuSolver();
+        SudokuBoard sukodu = new SudokuBoard(solver, true);
+        assertTrue(sukodu.checkBoard(0,0,1));
+    }
+
+    @Test
+    void solveGame() {
         SudokuBoard sudoku = new SudokuBoard();
         SudokuSolver solver = new BacktrackingSudokuSolver();
         sudoku.solveGame(solver);
-        assertTrue(checkLines(sudoku.getBoard()));
-        assertTrue(checkColumns(sudoku.getBoard()));
-        assertTrue(checkSquares(sudoku.getBoard()));
-
+        assertTrue(sudoku.checkBoard(0,0,1));
     }
 
     @Test
-    public void testPrint(){
+    void checkBoard() {
+        SudokuBoard blad_rzad = new SudokuBoard();
+        blad_rzad.set(0, 0, 2);
+        assertFalse(blad_rzad.checkBoard(0, 0, 2));
+        SudokuBoard blad_kolumna = new SudokuBoard();
+        blad_kolumna.set(0, 0, 2);
+        assertFalse(blad_kolumna.checkBoard(1, 0, 2));
+        SudokuBoard blad_kwadrat = new SudokuBoard();
+        for(int i =0; i < 3; i++){
+            for(int j =0; j < 2; j++)
+                blad_kwadrat.set(i, j, 2);
+        }
+        assertFalse(blad_kwadrat.checkBoard(2, 1, 2));
+    }
+
+    @Test
+    void printBoard() {
         SudokuBoard sudoku = new SudokuBoard();
         assertFalse(sudoku.printBoard().isEmpty());
     }
-    private boolean areEqual(int[][] first, int[][] second) {
-        for (int i = 0; i < second.length; i++) {
-            if (!Arrays.equals(first[i], second[i])) {
-                return false;
-            }
-        }
-        return true;
-
-    }
-
-    private boolean checkLines(int[][] lines) {
-        boolean[] numbersCheck = new boolean[9];
-        for (int i = 0; i < lines.length; i++) {
-            for (int j = 0; j < numbersCheck.length; j++) {
-                if (numbersCheck[lines[i][j] - 1]) {
-                    return false;
-                }
-                numbersCheck[lines[i][j] - 1] = true;
-            }
-            Arrays.fill(numbersCheck, false);
-        }
-        return true;
-    }
-
-    private boolean checkColumns(int[][] columns) {
-        boolean[] numbersCheck = new boolean[9];
-        for (int i = 0; i < columns.length; i++) {
-            for (int j = 0; j < numbersCheck.length; j++) {
-                if (numbersCheck[columns[j][i] - 1]) {
-                    return false;
-                }
-                numbersCheck[columns[j][i] - 1] = true;
-            }
-            Arrays.fill(numbersCheck, false);
-        }
-        return true;
-    }
-
-    private boolean checkSquares(int[][] squares) {
-
-        boolean[] numbersCheck = new boolean[9];
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                for (int x = 0; x < 3; x++) {
-                    for (int k = 0; k < 3; k++) {
-                        if (numbersCheck[squares[x + (i * 3)][k + (j * 3)] - 1]) {
-                            return false;
-                        }
-                        numbersCheck[squares[x + i * 3][k + j * 3] - 1] = true;
-
-                    }
-                    Arrays.fill(numbersCheck, false);
-                }
-
-            }
-
-        }
-        return true;
-    }
-
 }

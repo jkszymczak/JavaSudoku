@@ -6,11 +6,10 @@ public class SudokuBoard {
     SudokuSolver solver;
     boolean checkOnChange;
 
-    private int[][] simpleboard = new int[size][size];
     private SudokuField[][] board = new SudokuField[size][size];
-
     // metodes
     // constructors
+
     public SudokuBoard(SudokuSolver sudokuSolver, boolean checkOnChange) {
 
         this.solver = sudokuSolver;
@@ -24,13 +23,14 @@ public class SudokuBoard {
     }
 
     public SudokuBoard() {
-
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                this.board[i][j] = new SudokuField();
+            }
+        }
     }
 
     // getters
-    public int[][] getBoard() {
-        return simpleboard;
-    }
 
     public int get(int x, int y) {
         return this.board[x][y].getFieldValue();
@@ -68,13 +68,10 @@ public class SudokuBoard {
     // end of getters
 
     // setters
-    public boolean set(int x, int y, int value) {
+    public void set(int x, int y, int value) {
 
-        boolean statement =  checkBoard(x,y, value) || value == 0;
-        if (statement && checkOnChange) {
+
             this.board[x][y].setFieldValue(value);
-        }
-        return statement;
 
     }
     // end of setters
