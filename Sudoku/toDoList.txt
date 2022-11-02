@@ -1,1 +1,1 @@
-Rozpocząłem już prace nad zad 3, ale mało co zrobiłem poza utworzeniem struktury z schematu
+Zrobiłem chyba wszystko poza testami i wzorcem, nie wiem też za bardzo jak używać tych klas SudokuRow etc

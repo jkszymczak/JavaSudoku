@@ -4,12 +4,9 @@ package pl.first.firstjava;
 /**
  * SudokuBox
  */
-public class SudokuColumn implements SudokuChecker {
-
-    @Override
-    public boolean verify() {
-
-        return true;
+public class SudokuColumn extends SudokuChecker {
+    public SudokuColumn(SudokuField[] fields){
+        super(fields);
     }
 
 }

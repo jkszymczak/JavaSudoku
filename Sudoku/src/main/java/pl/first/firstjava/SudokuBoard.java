@@ -4,60 +4,87 @@ public class SudokuBoard {
     // atributes
     private static int size = 9;
     SudokuSolver solver;
+    boolean checkOnChange;
 
-    private int[][] board = new int[size][size];
-    private SudokuField[][] complexBoard = new SudokuField[size][size];
+    private int[][] simpleboard = new int[size][size];
+    private SudokuField[][] board = new SudokuField[size][size];
 
     // metodes
-    // getters
-    public int[][] getBoard() {
-        return board;
-    }
-
-    public SudokuBoard(SudokuSolver sudokuSolver) {
+    // constructors
+    public SudokuBoard(SudokuSolver sudokuSolver, boolean checkOnChange) {
 
         this.solver = sudokuSolver;
+        this.checkOnChange = checkOnChange;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                this.board[i][j] = new SudokuField();
+            }
+        }
+        solveGame(solver);
     }
 
     public SudokuBoard() {
 
     }
 
+    // getters
+    public int[][] getBoard() {
+        return simpleboard;
+    }
+
     public int get(int x, int y) {
-        return board[x][y];
+        return this.board[x][y].getFieldValue();
     }
 
     public SudokuRow getRow(int y) {
 
-        SudokuRow row = new SudokuRow();
-        return row;
+        SudokuField[] row = new SudokuField[size];
+        for (int i = 0; i < size; i++) {
+            row[i] = this.board[i][y];
+        }
+        return new SudokuRow(row);
     }
 
     public SudokuColumn getColumn(int x) {
-        SudokuColumn column = new SudokuColumn();
-        return column;
-
+        SudokuField[] column = new SudokuField[size];
+        for (int i = 0; i < size; i++) {
+            column[i] = this.board[x][i];
+        }
+        return new SudokuColumn(column);
     }
 
     public SudokuBox getBox(int x, int y) {
-        SudokuBox box = new SudokuBox();
-        return box;
+        int startRow = x - x % 3;
+        int startCol = y - y % 3;
+        SudokuField[] box = new SudokuField[size];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                box[i + startRow + j + startCol] = this.board[i + startRow][j + startCol];
+            }
+        }
+        return new SudokuBox(box);
 
     }
     // end of getters
 
     // setters
-    public void set(int x, int y, int value) {
+    public boolean set(int x, int y, int value) {
 
-        board[x][y] = value;
+        boolean statement =  checkBoard(x,y, value) || value == 0;
+        if (statement && checkOnChange) {
+            this.board[x][y].setFieldValue(value);
+        }
+        return statement;
 
     }
     // end of setters
 
     public void solveGame(SudokuSolver solver) {
 
-        // setFirstRow();
+        boolean save = this.checkOnChange;
+        this.checkOnChange = true;
         solver.solve(this);
+        this.checkOnChange = save;
 
     }
 
@@ -65,14 +92,14 @@ public class SudokuBoard {
 
         // sprawdzamy, czy jest powtorzenie w rzedzie row, jesli jest, zwracamy false
         for (int y = 0; y <= 8; y++) {
-            if (board[row][y] == num) {
+            if (board[row][y].getFieldValue() == num) {
                 return false;
             }
         }
 
         // sprawdzamy, czy jest powtorzenie w kolumnie col, jesli jest, zwracamy false
         for (int x = 0; x <= 8; x++) {
-            if (board[x][column] == num) {
+            if (board[x][column].getFieldValue() == num) {
                 return false;
             }
         }
@@ -83,7 +110,7 @@ public class SudokuBoard {
         int startCol = column - column % 3;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (board[i + startRow][j + startCol] == num) {
+                if (board[i + startRow][j + startCol].getFieldValue() == num) {
                     return false;
                 }
             }
@@ -105,7 +132,7 @@ public class SudokuBoard {
                     printed += "| ";
                 }
                 // System.out.print(board[i][j] + " ");
-                printed += board[i][j] + " ";
+                printed += board[i][j].getFieldValue() + " ";
                 if (j % 3 == 2) {
                     // System.out.print("| ");
                     printed += "| ";
