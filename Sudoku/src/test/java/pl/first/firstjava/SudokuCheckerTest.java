@@ -34,5 +34,18 @@ class SudokuCheckerTest {
                 new SudokuField(9)});
         assertFalse(sudokuRow.verify());
     }
-
+    @Test
+    public void zeros() {
+        SudokuRow sudokuRow = new SudokuRow(new SudokuField[]{
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0)});
+        assertTrue(sudokuRow.verify());
+    }
 }
