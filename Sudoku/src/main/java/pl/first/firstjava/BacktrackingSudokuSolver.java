@@ -39,7 +39,7 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
             if (board.checkBoard(row, column, shoot)) {
 
                 // jesli mozna wstawic liczbe, to to robimy
-                // board.set(row, column, shoot);
+                board.set(row, column, shoot);
 
                 // rekurencja
                 if (solveSudoku(row, column + 1, board)) {
@@ -54,4 +54,3 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
         return false;
     }
 }
-

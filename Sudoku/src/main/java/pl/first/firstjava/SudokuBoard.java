@@ -19,7 +19,7 @@ public class SudokuBoard {
                 this.board[i][j] = new SudokuField();
             }
         }
-        solveGame(solver);
+        solveGame(this.solver);
     }
 
     public SudokuBoard() {
@@ -28,6 +28,7 @@ public class SudokuBoard {
                 this.board[i][j] = new SudokuField();
             }
         }
+        this.checkOnChange = true;
     }
 
     // getters
@@ -68,11 +69,16 @@ public class SudokuBoard {
     // end of getters
 
     // setters
-    public void set(int x, int y, int value) {
-
-
+    public boolean set(int x, int y, int value) {
+        if (!checkOnChange) {
             this.board[x][y].setFieldValue(value);
-
+            return true;
+        }
+        if (checkBoard(x, y, value) || value == 0) {
+            this.board[x][y].setFieldValue(value);
+            return true;
+        }
+        return false;
     }
     // end of setters
 
