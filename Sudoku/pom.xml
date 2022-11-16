@@ -21,7 +21,13 @@
             <email>242548@edu.p.lodz.pl</email>
         </developer>
     </developers>
-    <!-- tu trzeba ogarnąć jaką grupe mamy konkretnie-->
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <comments></comments>
+        </license>
+    </licenses>
     <description>Projekt grupy laboratoryjnej MB_CZ_1800_02</description>
     <reporting>
         <plugins>
