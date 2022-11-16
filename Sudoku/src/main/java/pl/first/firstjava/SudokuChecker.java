@@ -3,11 +3,9 @@ import java.util.*;
 
 public abstract class SudokuChecker {
     protected SudokuField[] field2;
-    protected List<SudokuField> field = Arrays.asList(new SudokuField[9]);
+    protected List<SudokuField> field = new ArrayList<SudokuField>(Arrays.asList(new SudokuField[9]));
     public SudokuChecker(SudokuField[] fields) {
-        for(int i=0;i<fields.length;i++){
-            this.field.add(fields[i]);
-        }
+        this.field.addAll(Arrays.asList(fields));
     }
 
     public boolean verify() {
