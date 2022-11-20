@@ -1,8 +1,0 @@
-GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-00_Sudoku-2.0,pl.first.firstjava,SudokuBoard,0,373,0,48,0,71,0,35,0,11
-00_Sudoku-2.0,pl.first.firstjava,SudokuChecker,0,53,0,6,0,13,0,5,0,2
-00_Sudoku-2.0,pl.first.firstjava,SudokuField,0,32,0,0,0,11,0,5,0,5
-00_Sudoku-2.0,pl.first.firstjava,BacktrackingSudokuSolver,0,86,0,14,0,20,0,11,0,4
-00_Sudoku-2.0,pl.first.firstjava,SudokuColumn,0,4,0,0,0,2,0,1,0,1
-00_Sudoku-2.0,pl.first.firstjava,SudokuBox,0,4,0,0,0,2,0,1,0,1
-00_Sudoku-2.0,pl.first.firstjava,SudokuRow,0,4,0,0,0,2,0,1,0,1

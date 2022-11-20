@@ -1,4 +1,5 @@
 package pl.first.firstjava;
+
 import java.lang.Object;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -156,9 +157,13 @@ public class SudokuBoard {
     }
 
     @Override
-    public boolean equals(final Object obj){
-        if (obj == null) { return false; }
-        if (obj == this) { return true; }
+    public boolean equals(final Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
         if (obj.getClass() != getClass()) {
             return false;
         }
@@ -166,12 +171,12 @@ public class SudokuBoard {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return new HashCodeBuilder(17, 37).append(this.board).toHashCode();
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return new ToStringBuilder(this).append("board", this.board).toString();
     }
 }

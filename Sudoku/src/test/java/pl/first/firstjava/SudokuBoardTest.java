@@ -95,4 +95,38 @@ class SudokuBoardTest {
         }
         return true;
     }
+    @Test
+    void testEquals(){
+        //test null
+        SudokuBoard test = new SudokuBoard();
+        test.set(0, 0, 1);
+        assertFalse(test.equals(null));
+        //test ten sam obiekt
+        assertTrue(test.equals(test));
+        //test inna klasa
+        SudokuField abc = new SudokuField(2);
+        assertFalse(test.equals(abc));
+        //test porownanie identycznych obiektow klas Sudokuboard
+        SudokuBoard test1 = new SudokuBoard();
+        test1.set(0, 0, 1);
+        assertTrue(test.equals(test1));
+        //test porownanie roznych obiektow klas Sudokuboard
+        SudokuBoard test2 = new SudokuBoard();
+        assertFalse(test.equals(test2));
+    }
+
+    @Test
+    void testHashCode(){
+        SudokuBoard test = new SudokuBoard();
+        test.set(0, 0, 1);
+        SudokuBoard test1 = new SudokuBoard();
+        assertFalse(test.hashCode() == test1.hashCode());
+    }
+    @Test
+    void testToString(){
+        SudokuBoard test = new SudokuBoard();
+        test.set(0, 0, 1);
+        SudokuBoard test1 = new SudokuBoard();
+        assertFalse(test.toString() == test1.toString());
+    }
 }

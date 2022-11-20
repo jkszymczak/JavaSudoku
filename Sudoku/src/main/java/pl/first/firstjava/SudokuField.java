@@ -34,9 +34,13 @@ public class SudokuField {
     }
 
     @Override
-    public boolean equals(Object obj){
-        if (obj == null) { return false; }
-        if (obj == this) { return true; }
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
         if (obj.getClass() != getClass()) {
             return false;
         }
@@ -44,12 +48,12 @@ public class SudokuField {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return new HashCodeBuilder(17, 37).append(this.value).toHashCode();
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return new ToStringBuilder(this).append("value", value).toString();
     }
 }
