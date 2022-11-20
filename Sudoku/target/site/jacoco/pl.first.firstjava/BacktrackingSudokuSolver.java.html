@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BacktrackingSudokuSolver.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">00_Sudoku-2.0</a> &gt; <a href="index.source.html" class="el_package">pl.first.firstjava</a> &gt; <span class="el_source">BacktrackingSudokuSolver.java</span></div><h1>BacktrackingSudokuSolver.java</h1><pre class="source lang-java linenums">package pl.first.firstjava;
+
+import java.util.Random;
+
+<span class="fc" id="L5">public class BacktrackingSudokuSolver implements SudokuSolver {</span>
+
+<span class="fc" id="L7">    private static int size = 9;</span>
+
+    @Override
+    public void solve(SudokuBoard board) {
+<span class="fc" id="L11">        solveSudoku(0, 0, board);</span>
+<span class="fc" id="L12">    }</span>
+
+    static boolean solveSudoku(int row, int column, SudokuBoard board) {
+
+        // jesli zostanie osiagniety koniec planszy sudoku to zwracamy true
+<span class="fc bfc" id="L17" title="All 4 branches covered.">        if (row == size - 1 &amp;&amp; column == size) {</span>
+<span class="fc" id="L18">            return true;</span>
+        }
+
+        // jesli column osiagnie wartosc 9 to zmieniamy rzad row na kolejny, i zmieniamy
+        // kolumne na 0
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        if (column == size) {</span>
+<span class="fc" id="L24">            row++;</span>
+<span class="fc" id="L25">            column = 0;</span>
+        }
+
+        // jesli obecna komorka zawiera juz wartosc rozna od 0, to przeskakujemy do
+        // nastepnej kolumny
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (board.get(row, column) != 0) {</span>
+<span class="fc" id="L31">            return solveSudoku(row, column + 1, board);</span>
+        }
+
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        for (int number = 1; number &lt; 10; number++) {</span>
+
+            // losujemy liczbe 1-9 i sprawdzamy czy możemy ją wstawić
+<span class="fc" id="L37">            Random random = new Random();</span>
+<span class="fc" id="L38">            int shoot = random.nextInt(9) + 1;</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">            if (board.checkBoard(row, column, shoot)) {</span>
+
+                // jesli mozna wstawic liczbe, to to robimy
+<span class="fc" id="L42">                board.set(row, column, shoot);</span>
+
+                // rekurencja
+<span class="fc bfc" id="L45" title="All 2 branches covered.">                if (solveSudoku(row, column + 1, board)) {</span>
+<span class="fc" id="L46">                    return true;</span>
+                }
+
+            }
+            // jesli nie mozna wtawic liczby number, zerujemy komorke;
+<span class="fc" id="L51">            board.set(row, column, 0);</span>
+
+        }
+<span class="fc" id="L54">        return false;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

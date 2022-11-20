@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="10.0">
+<file name="/home/krystian/Dokumenty/studia/mb_cz_1800_02/Sudoku/src/main/java/pl/first/firstjava/SudokuField.java">
+</file>
+<file name="/home/krystian/Dokumenty/studia/mb_cz_1800_02/Sudoku/src/main/java/pl/first/firstjava/.java">
+</file>
+<file name="/home/krystian/Dokumenty/studia/mb_cz_1800_02/Sudoku/src/main/java/pl/first/firstjava/SudokuSolver.java">
+</file>
+<file name="/home/krystian/Dokumenty/studia/mb_cz_1800_02/Sudoku/src/main/java/pl/first/firstjava/SudokuBox.java">
+</file>
+<file name="/home/krystian/Dokumenty/studia/mb_cz_1800_02/Sudoku/src/main/java/pl/first/firstjava/SudokuColumn.java">
+</file>
+<file name="/home/krystian/Dokumenty/studia/mb_cz_1800_02/Sudoku/src/main/java/pl/first/firstjava/SudokuChecker.java">
+</file>
+<file name="/home/krystian/Dokumenty/studia/mb_cz_1800_02/Sudoku/src/main/java/pl/first/firstjava/SudokuRow.java">
+</file>
+<file name="/home/krystian/Dokumenty/studia/mb_cz_1800_02/Sudoku/src/main/java/pl/first/firstjava/App.java">
+</file>
+<file name="/home/krystian/Dokumenty/studia/mb_cz_1800_02/Sudoku/src/main/java/pl/first/firstjava/SudokuBoard.java">
+<error line="2" column="1" severity="error" message="&apos;import&apos; should be separated from previous line." source="com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyLineSeparatorCheck"/>
+<error line="2" column="40" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.apache.commons.lang3.builder.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+<error line="3" column="1" severity="error" message="&apos;CLASS_DEF&apos; should be separated from previous line." source="com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyLineSeparatorCheck"/>
+</file>
+<file name="/home/krystian/Dokumenty/studia/mb_cz_1800_02/Sudoku/src/main/java/pl/first/firstjava/BacktrackingSudokuSolver.java">
+</file>
+</checkstyle>
