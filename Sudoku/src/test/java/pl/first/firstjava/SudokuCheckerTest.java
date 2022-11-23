@@ -36,7 +36,7 @@ class SudokuCheckerTest {
     }
     @Test
     public void zeros() {
-        SudokuRow sudokuRow = new SudokuRow(new SudokuField[]{
+        SudokuChecker sudokuRow = new SudokuRow(new SudokuField[]{
                 new SudokuField(0),
                 new SudokuField(0),
                 new SudokuField(0),
@@ -51,7 +51,7 @@ class SudokuCheckerTest {
 
     @Test
     void testHashCode() {
-        SudokuRow test = new SudokuRow(new SudokuField[]{
+        SudokuChecker test = new SudokuRow(new SudokuField[]{
                 new SudokuField(0),
                 new SudokuField(0),
                 new SudokuField(0),
@@ -61,7 +61,7 @@ class SudokuCheckerTest {
                 new SudokuField(0),
                 new SudokuField(0),
                 new SudokuField(0)});
-        SudokuRow test1 = new SudokuRow(new SudokuField[] {
+        SudokuChecker test1 = new SudokuRow(new SudokuField[] {
                 new SudokuField(1),
                 new SudokuField(2),
                 new SudokuField(3),
@@ -73,10 +73,11 @@ class SudokuCheckerTest {
                 new SudokuField(0)});
         assertFalse(test.hashCode() == test1.hashCode());
     }
+
     @Test
     void testEquals(){
         //test null
-        SudokuRow test = new SudokuRow(new SudokuField[]{
+        SudokuChecker test = new SudokuRow(new SudokuField[]{
                 new SudokuField(0),
                 new SudokuField(0),
                 new SudokuField(0),
@@ -93,7 +94,7 @@ class SudokuCheckerTest {
         SudokuBoard abc = new SudokuBoard();
         assertFalse(test.equals(abc));
         //test porownanie identycznych obiektow klas Sudokuboard
-        SudokuRow test1 = new SudokuRow(new SudokuField[]{
+        SudokuChecker test1 = new SudokuRow(new SudokuField[]{
                 new SudokuField(0),
                 new SudokuField(0),
                 new SudokuField(0),
@@ -104,8 +105,9 @@ class SudokuCheckerTest {
                 new SudokuField(0),
                 new SudokuField(0)});
         assertTrue(test.equals(test1));
+        assertTrue(test1.equals(test));
         //test porownanie roznych obiektow klas Sudokuboard
-        SudokuRow test2 = new SudokuRow(new SudokuField[] {
+        SudokuChecker test2 = new SudokuRow(new SudokuField[] {
                 new SudokuField(1),
                 new SudokuField(2),
                 new SudokuField(3),
@@ -116,10 +118,9 @@ class SudokuCheckerTest {
                 new SudokuField(0),
                 new SudokuField(0)});
         assertFalse(test.equals(test2));
-    }
-    @Test
-    void testToString(){
-        SudokuRow test = new SudokuRow(new SudokuField[]{
+        assertFalse(test2.equals(test));
+        //test porównanie elementów z różnych podklas
+        SudokuChecker test3 = new SudokuBox(new SudokuField[]{
                 new SudokuField(0),
                 new SudokuField(0),
                 new SudokuField(0),
@@ -129,7 +130,10 @@ class SudokuCheckerTest {
                 new SudokuField(0),
                 new SudokuField(0),
                 new SudokuField(0)});
-        SudokuRow test1 = new SudokuRow(new SudokuField[]{
+        assertFalse(test3.equals(test));
+        assertFalse(test.equals(test3));
+
+        SudokuChecker test4 = new SudokuColumn(new SudokuField[]{
                 new SudokuField(0),
                 new SudokuField(0),
                 new SudokuField(0),
@@ -139,6 +143,9 @@ class SudokuCheckerTest {
                 new SudokuField(0),
                 new SudokuField(0),
                 new SudokuField(0)});
-        assertFalse(test.toString() == test1.toString());
+        assertFalse(test4.equals(test));
+        assertFalse(test.equals(test4));
+        assertFalse(test3.equals(test4));
+        assertFalse(test4.equals(test3));
     }
 }

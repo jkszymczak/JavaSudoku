@@ -1,1 +1,2 @@
-dodana kolekcja w sudokuchecker i licencja Apache(ogarnij jak ona działa, może o to pytać), trzeba naprawić testy tylko i chyba zrobione 
+można na ez sobie wygenerować raport licencji
+komenda -> mvn license:add-third-party

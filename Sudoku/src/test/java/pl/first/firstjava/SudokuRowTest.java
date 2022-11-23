@@ -1,0 +1,36 @@
+
+package pl.first.firstjava;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class SudokuRowTest {
+
+    @Test
+    void testToString(){
+        SudokuRow test = new SudokuRow(new SudokuField[]{
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0)});
+        SudokuRow test1 = new SudokuRow(new SudokuField[]{
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0)});
+        assertFalse(test.toString() == test1.toString());
+    }
+
+    
+}
