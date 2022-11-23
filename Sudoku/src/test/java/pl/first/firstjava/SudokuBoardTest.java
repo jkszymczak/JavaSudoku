@@ -129,4 +129,13 @@ class SudokuBoardTest {
         SudokuBoard test1 = new SudokuBoard();
         assertFalse(test.toString() == test1.toString());
     }
+    @Test
+    void testIntegrity(){
+        SudokuBoard test = new SudokuBoard();
+        test.set(0, 0, 1);
+        SudokuBoard test1 = new SudokuBoard();
+        test1.set(0,0,1);
+        assertTrue(test.equals(test1)&&test.hashCode()==test1.hashCode());
+
+    }
 }

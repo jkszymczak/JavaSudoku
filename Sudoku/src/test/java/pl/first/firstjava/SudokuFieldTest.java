@@ -53,4 +53,10 @@ class SudokuFieldTest {
         SudokuField test1 = new SudokuField();
         assertFalse(test.toString() == test1.toString());
     }
+    @Test
+    void testIntegrity(){
+        SudokuField test = new SudokuField(1);
+        SudokuField test1 = new SudokuField(1);
+        assertTrue(test.equals(test1)&&test.hashCode()==test1.hashCode());
+    }
 }

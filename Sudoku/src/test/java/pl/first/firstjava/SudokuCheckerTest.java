@@ -148,4 +148,30 @@ class SudokuCheckerTest {
         assertFalse(test3.equals(test4));
         assertFalse(test4.equals(test3));
     }
+    @Test
+    void testIntegrity(){
+
+        SudokuChecker test1 = new SudokuRow(new SudokuField[]{
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0)});
+        //test porownanie roznych obiektow klas Sudokuboard
+        SudokuChecker test2 = new SudokuRow(new SudokuField[] {
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0),
+                new SudokuField(0)});
+        assertTrue(test1.equals(test2)&&test1.hashCode()==test2.hashCode());
+    }
 }
