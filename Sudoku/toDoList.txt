@@ -1,2 +1,1 @@
-można na ez sobie wygenerować raport licencji
-komenda -> mvn license:add-third-party
+napisać testy, żeby wywalało IOExceptions dla read() i write() klasy FileSudokuBoardDao

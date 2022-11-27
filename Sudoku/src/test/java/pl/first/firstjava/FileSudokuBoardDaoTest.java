@@ -1,6 +1,9 @@
 package pl.first.firstjava;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
+
+import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,8 +24,7 @@ public class FileSudokuBoardDaoTest {
     void testReadExceptions() {
         SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
         Dao<SudokuBoard> testDao;
-        testDao = factory.getFileDao("Case2");
-        assertEquals(testDao.read(), RuntimeException.class);
-        ;
+        testDao = factory.getFileDao("nothing");
+        assertThrowsExactly(RuntimeException.class, () -> {testDao.read();}); 
     }
 }
