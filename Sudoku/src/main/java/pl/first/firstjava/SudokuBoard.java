@@ -1,10 +1,11 @@
 package pl.first.firstjava;
 
+import java.io.Serializable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class SudokuBoard {
+public class SudokuBoard implements Serializable {
     // atributes
     private static int size = 9;
     SudokuSolver solver;
