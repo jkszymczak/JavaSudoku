@@ -21,8 +21,10 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
                 obj = (SudokuBoard) objectInputStream.readObject();
             } catch (ClassNotFoundException exception) {
+                System.out.println("Class Not Found");
                 throw new RuntimeException(exception);
             } catch (IOException exception) {
+            System.out.println("IO problem here");
                 throw new RuntimeException(exception);
             }
             return obj;

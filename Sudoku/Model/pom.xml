@@ -7,32 +7,10 @@
         <version>2.0-SNAPSHOT</version>
     </parent>
     <artifactId>ModelProject</artifactId>
-
     <packaging>jar</packaging>
 
-    <name>00_${project.artifactId}-${project.version}</name>
-
     <url>http://maven.apache.org</url>
-    <developers>
-        <developer>
-            <id>242510</id>
-            <name>Krystian Romkowski</name>
-            <email>242510@edu.p.lodz.pl</email>
-        </developer>
-        <developer>
-            <id>242548</id>
-            <name>Jakub Szymczak</name>
-            <email>242548@edu.p.lodz.pl</email>
-        </developer>
-    </developers>
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <comments></comments>
-        </license>
-    </licenses>
-    <description>Projekt grupy laboratoryjnej MB_CZ_1800_02</description>
+
     <reporting>
         <plugins>
             <plugin>
@@ -192,30 +170,30 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.8.2</version>
+
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.12.0</version>
+
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>${javafx.version}</version>
+
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>${javafx.version}</version>
+
         </dependency>
     </dependencies>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>17</maven.compiler.release>
-        <javafx.version>13</javafx.version>
+
 
     </properties>
 </project>
