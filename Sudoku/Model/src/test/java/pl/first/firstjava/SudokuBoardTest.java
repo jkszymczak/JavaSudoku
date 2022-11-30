@@ -137,4 +137,16 @@ class SudokuBoardTest {
         assertTrue(test.equals(test1)&&test.hashCode()==test1.hashCode());
 
     }
+
+    @Test
+    void testClone() throws CloneNotSupportedException {
+        SudokuBoard testBoard1 = new SudokuBoard();
+        testBoard1.set(0, 0, 1);
+        SudokuBoard testBoard2 = (SudokuBoard) testBoard1.clone();
+        boolean areEqual = testBoard1 == testBoard2;
+        assertFalse(areEqual);
+        assertTrue(testBoard2.get(0, 0) == 1);
+        testBoard1.set(0, 1, 2);
+        assertTrue(testBoard2.get(0, 1) == 2);
+    }
 }

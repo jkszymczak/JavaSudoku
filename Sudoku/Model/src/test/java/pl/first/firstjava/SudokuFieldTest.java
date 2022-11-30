@@ -59,4 +59,13 @@ class SudokuFieldTest {
         SudokuField test1 = new SudokuField(1);
         assertTrue(test.equals(test1)&&test.hashCode()==test1.hashCode());
     }
+
+    @Test
+    void testClone() throws CloneNotSupportedException {
+        SudokuField test = new SudokuField(1);
+        SudokuField test1 = (SudokuField) test.clone();
+        assertFalse(test == test1);
+        test1.setFieldValue(3);
+        assertTrue(test1.getFieldValue() == 3);
+    }
 }

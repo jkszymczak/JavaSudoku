@@ -8,7 +8,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 
-public class SudokuField implements Serializable {
+public class SudokuField implements Serializable, Cloneable {
 
     private int value;
 
@@ -56,5 +56,10 @@ public class SudokuField implements Serializable {
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("value", value).toString();
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }
