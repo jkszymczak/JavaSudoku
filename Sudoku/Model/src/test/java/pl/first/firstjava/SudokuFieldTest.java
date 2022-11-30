@@ -68,4 +68,14 @@ class SudokuFieldTest {
         test1.setFieldValue(3);
         assertTrue(test1.getFieldValue() == 3);
     }
+
+    @Test
+    void testCompareTo() {
+        SudokuField test = new SudokuField(2);
+        SudokuField test1 = new SudokuField(3);
+        assertTrue(test.compareTo(test) == 0);
+        assertTrue(test.compareTo(test1) == -1);
+        SudokuField test2 = new SudokuField(1);
+        assertTrue(test.compareTo(test2) == 1);
+    }
 }

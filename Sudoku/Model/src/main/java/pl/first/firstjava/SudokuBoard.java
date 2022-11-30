@@ -180,15 +180,23 @@ public class SudokuBoard implements Serializable, Cloneable {
         return new ToStringBuilder(this).append("board", this.board).toString();
     }
 
+    public SudokuField getField(int x, int y) {
+        return this.board[x][y];
+    }
+
+    public void setField(int x, int y, SudokuField field) {
+        this.board[x][y] = field;
+    }
+
     @Override
     public Object clone() throws CloneNotSupportedException {
-        /*SudokuBoard clonedSudokuBoard = new SudokuBoard();
-        for(int i=0; i < size; i++) {
-            for(int j=0; j < size; j++){
-                clonedSudokuBoard.set(i, j, this.get(i, j).clone());
+        SudokuBoard clonedSudokuBoard = new SudokuBoard();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                clonedSudokuBoard.setField(i, j, (SudokuField) this.getField(i, j).clone());
             }
         }
-        return clonedSudokuBoard;*/
-        return super.clone();
+        return clonedSudokuBoard;
+        //return super.clone();
     }
 }

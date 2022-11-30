@@ -147,6 +147,6 @@ class SudokuBoardTest {
         assertFalse(areEqual);
         assertTrue(testBoard2.get(0, 0) == 1);
         testBoard1.set(0, 1, 2);
-        assertTrue(testBoard2.get(0, 1) == 2);
+        assertFalse(testBoard2.get(0, 1) == 2);
     }
 }
