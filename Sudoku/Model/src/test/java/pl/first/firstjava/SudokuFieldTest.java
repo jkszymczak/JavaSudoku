@@ -77,5 +77,7 @@ class SudokuFieldTest {
         assertTrue(test.compareTo(test1) == -1);
         SudokuField test2 = new SudokuField(1);
         assertTrue(test.compareTo(test2) == 1);
+        assertThrowsExactly(NullPointerException.class, () -> {test.compareTo(null);});
+
     }
 }
