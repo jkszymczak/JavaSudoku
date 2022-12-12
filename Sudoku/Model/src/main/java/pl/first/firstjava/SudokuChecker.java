@@ -1,5 +1,6 @@
 package pl.first.firstjava;
 
+//import java.text.Format.Field;
 //import java.util;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,17 +9,21 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-
-public abstract class SudokuChecker {
-    //protected SudokuField[] field2;
+public abstract class SudokuChecker implements Cloneable {
+    // protected SudokuField[] field2;
     protected final int size = 9;
     protected List<SudokuField> field = new ArrayList<>();
 
     public SudokuChecker(SudokuField[] fields) {
-        //for(int i=0;i<size;i++){
-        //    this.field.add(i,fields[i]);
-        //}
         this.field.addAll(Arrays.asList(fields));
+    }
+
+    public SudokuChecker() {
+    }
+
+    public void setField(SudokuField[] fields) {
+        //this.field.addAll(Arrays.asList(fields));
+        this.field = Arrays.asList(fields);
     }
 
     public boolean verify() {
@@ -34,6 +39,14 @@ public abstract class SudokuChecker {
         return true;
     }
 
+    public void changeField(int place, int value) {
+        field.get(place).setFieldValue(value);
+    }
+
+    public int getFieldValue(int place) {
+        return field.get(place).getFieldValue();
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -45,7 +58,7 @@ public abstract class SudokuChecker {
         if (obj.getClass() != getClass()) {
             return false;
         }
-        return new EqualsBuilder().append(this.field,((SudokuChecker)obj).field).isEquals();
+        return new EqualsBuilder().append(this.field, ((SudokuChecker) obj).field).isEquals();
     }
 
     @Override
@@ -56,5 +69,11 @@ public abstract class SudokuChecker {
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("field", field).toString();
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        SudokuChecker checkerClone = (SudokuChecker) super.clone();
+        return checkerClone;
     }
 }
