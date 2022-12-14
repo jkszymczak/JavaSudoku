@@ -22,7 +22,7 @@ public abstract class SudokuChecker implements Cloneable {
     }
 
     public void setField(SudokuField[] fields) {
-        //this.field.addAll(Arrays.asList(fields));
+        // this.field.addAll(Arrays.asList(fields));
         this.field = Arrays.asList(fields);
     }
 

@@ -167,7 +167,7 @@ public class SudokuBoard implements Serializable, Cloneable {
         if (obj.getClass() != getClass()) {
             return false;
         }
-        return new EqualsBuilder().append(this.board, ((SudokuBoard)obj).board).isEquals();
+        return new EqualsBuilder().append(this.board, ((SudokuBoard) obj).board).isEquals();
     }
 
     @Override
@@ -197,6 +197,6 @@ public class SudokuBoard implements Serializable, Cloneable {
             }
         }
         return clonedSudokuBoard;
-        //return super.clone();
+        // return super.clone();
     }
 }
