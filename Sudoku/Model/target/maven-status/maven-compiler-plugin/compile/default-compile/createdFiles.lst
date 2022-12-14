@@ -1,0 +1,13 @@
+pl/first/firstjava/SudokuColumn.class
+pl/first/firstjava/HelloApplication.class
+pl/first/firstjava/SudokuRow.class
+pl/first/firstjava/Dao.class
+pl/first/firstjava/SudokuBoard.class
+pl/first/firstjava/SudokuChecker.class
+pl/first/firstjava/BacktrackingSudokuSolver.class
+pl/first/firstjava/SudokuBoardDaoFactory.class
+pl/first/firstjava/FileSudokuBoardDao.class
+pl/first/firstjava/SudokuSolver.class
+pl/first/firstjava/SudokuField.class
+pl/first/firstjava/SudokuBox.class
+pl/first/firstjava/HelloController.class

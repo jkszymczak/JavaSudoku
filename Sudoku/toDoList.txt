@@ -1,1 +1,0 @@
-napisać testy, żeby wywalało IOExceptions dla read() i write() klasy FileSudokuBoardDao
