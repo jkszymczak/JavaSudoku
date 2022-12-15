@@ -33,6 +33,12 @@
         </license>
     </licenses>
     <description>Projekt grupy laboratoryjnej MB_CZ_1800_02</description>
+    <distributionManagement>
+        <site>
+            <id>site</id>
+            <url>scp://www.mycompany.com/www/docs/project/</url>
+        </site>
+    </distributionManagement>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.8.2</junit.version>
