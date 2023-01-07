@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>pl.comp</groupId>
@@ -104,8 +104,6 @@
                         <artifactId>checkstyle</artifactId>
                         <version>10.0</version>
                     </dependency>
-
-
                 </dependencies>
             </plugin>
             <plugin>
@@ -156,17 +154,16 @@
 
             <!--<plugin>
                 <Build an executable JAR >
-                <groupId>org.apache.maven.plugins</groupId>
+            <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.0</version>
+            <version>3.1.0</version>
                 <configuration>
                     <archive>
-                        <manifest>
+            <manifest>
                             <addClasspath>true</addClasspath>
-
-                            <mainClass>pl.first.firstjava.pl.comp.App</mainClass>
+            <mainClass>pl.first.firstjava.pl.comp.App</mainClass>
                         </manifest>
-                    </archive>
+            </archive>
                 </configuration>
             </plugin>-->
         </plugins>
@@ -197,41 +194,45 @@
             <artifactId>commons-lang3</artifactId>
 
         </dependency>
+        <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>1.2.3</version>
+    </dependency>
     </dependencies>
-<!--
+    <!--
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+    <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.1</version>
+    <version>3.10.1</version>
                 <configuration>
                     <source>17</source>
-                    <target>17</target>
+    <target>17</target>
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.openjfx</groupId>
+    <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.8</version>
+    <version>0.0.8</version>
                 <executions>
                     <execution>
-
-                        <id>default-cli</id>
+    <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                pl.first.firstjava.moduleproject/pl.first.firstjava.HelloApplication
+    pl.first.firstjava.moduleproject/pl.first.firstjava.HelloApplication
                             </mainClass>
-                            <launcher>app</launcher>
+    <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
-                            <jlinkImageName>app</jlinkImageName>
+    <jlinkImageName>app</jlinkImageName>
                             <noManPages>true</noManPages>
-                            <stripDebug>true</stripDebug>
+    <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>
-                        </configuration>
+    </configuration>
                     </execution>
                 </executions>
             </plugin>
-        </plugins>
+    </plugins>
     </build>-->
 </project>
