@@ -24,11 +24,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.util.converter.NumberStringConverter;
-import pl.first.firstjava.BacktrackingSudokuSolver;
-import pl.first.firstjava.DifficultyLevel;
-import pl.first.firstjava.FileSudokuBoardDao;
-import pl.first.firstjava.SudokuBoard;
-
+import pl.first.firstjava.*;
 
 
 public class BoardController implements Initializable {
@@ -73,10 +69,14 @@ public class BoardController implements Initializable {
     @FXML
     Pane pane;
 
-    public void difficulty(int lvl) throws CloneNotSupportedException {
-        sudokuBoard = (SudokuBoard) generowanie().clone();
-        DifficultyLevel probne = DifficultyLevel.Easy;
-        probne.zeroFields(lvl, sudokuBoard);
+    public void difficulty(int lvl) throws CloneException {
+        try {
+            sudokuBoard = (SudokuBoard) generowanie().clone();
+            DifficultyLevel probne = DifficultyLevel.Easy;
+            probne.zeroFields(lvl, sudokuBoard);
+        } catch (CloneNotSupportedException e) {
+            throw new CloneException(BoardController.class.getSimpleName());
+        }
     }
     private static String randomString(int n)
     {
@@ -105,45 +105,71 @@ public class BoardController implements Initializable {
         Locale.setDefault(new Locale("pl"));
     }*/
     @FXML
-    public void save() {
-        FileSudokuBoardDao zapisywacz = new FileSudokuBoardDao(randomString(5));
-        zapisywacz.write(sudokuBoard);
+    public void save() throws DaoFileOperationException {
+        try{
+            FileSudokuBoardDao zapisywacz = new FileSudokuBoardDao(randomString(5));
+            zapisywacz.write(sudokuBoard);
+        } catch (DaoFileOperationException e) {
+            throw new DaoFileOperationException(e,BoardController.class.getSimpleName());
+
+        }
+
     }
     @FXML
-    public void read() throws CloneNotSupportedException {
-        FileChooser chooser = new FileChooser();
-        chooser.setTitle("Open File");
-        String fileName = chooser.showOpenDialog(new Stage()).getName().replaceFirst("[.][^.]+$", "");
-        System.out.println(fileName);
-        FileSudokuBoardDao plik = new FileSudokuBoardDao(fileName);
-        sudokuBoard = plik.read();
-        GraphicsContext context = canvas.getGraphicsContext2D();
-        drawOnCanvas(context);
+    public void read() throws CloneException, DaoFileOperationException {
+        try {
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Open File");
+            String fileName = chooser.showOpenDialog(new Stage()).getName().replaceFirst("[.][^.]+$", "");
+            System.out.println(fileName);
+            FileSudokuBoardDao plik = new FileSudokuBoardDao(fileName);
+            sudokuBoard = plik.read();
+            GraphicsContext context = canvas.getGraphicsContext2D();
+            drawOnCanvas(context);
 
-        BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
-        sudokuBoardSolved = (SudokuBoard) sudokuBoard.clone();
-        sudokuBoardSolved.solveGame(solver);
+            BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
+            sudokuBoardSolved = (SudokuBoard) sudokuBoard.clone();
+            sudokuBoardSolved.solveGame(solver);
+        } catch (CloneNotSupportedException e) {
+            throw new CloneException(BoardController.class.getSimpleName());
+        } catch (DaoFileOperationException e) {
+            throw new DaoFileOperationException(e,BoardController.class.getSimpleName());
+        }
+
     }
 
     @FXML
-    protected void easymode() throws CloneNotSupportedException {
-        difficulty(1);
-        GraphicsContext context = canvas.getGraphicsContext2D();
-        drawOnCanvas(context);
+    protected void easymode() throws CloneException {
+        try {
+            difficulty(1);
+            GraphicsContext context = canvas.getGraphicsContext2D();
+            drawOnCanvas(context);
+        } catch (CloneNotSupportedException e) {
+            throw new CloneException(BoardController.class.getSimpleName());
+        }
+
     }
 
     @FXML
-    protected void mediummode() throws CloneNotSupportedException {
-        difficulty(2);
-        GraphicsContext context = canvas.getGraphicsContext2D();
-        drawOnCanvas(context);
+    protected void mediummode() throws CloneException {
+        try {
+            difficulty(2);
+            GraphicsContext context = canvas.getGraphicsContext2D();
+            drawOnCanvas(context);
+        } catch (CloneNotSupportedException e) {
+            throw new CloneException(BoardController.class.getSimpleName());        }
+
     }
 
     @FXML
-    protected void hardmode() throws CloneNotSupportedException {
-        difficulty(3);
-        GraphicsContext context = canvas.getGraphicsContext2D();
-        drawOnCanvas(context);
+    protected void hardmode() throws CloneException {
+        try {
+            difficulty(3);
+            GraphicsContext context = canvas.getGraphicsContext2D();
+            drawOnCanvas(context);
+        } catch (CloneNotSupportedException e){
+            throw new CloneException(BoardController.class.getSimpleName());
+        }
     }
 
     @Override
@@ -159,7 +185,7 @@ public class BoardController implements Initializable {
 
     }
 
-    public SudokuBoard generowanie() throws CloneNotSupportedException {
+    public SudokuBoard generowanie() throws CloneException {
         BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
         SudokuBoard sudokuBoard1 = new SudokuBoard(solver, false);
         return sudokuBoard1;
@@ -190,7 +216,7 @@ public class BoardController implements Initializable {
         sudokuBoard = new SudokuBoard();
     }
 
-    public void drawOnCanvas(GraphicsContext context) throws CloneNotSupportedException {
+    public void drawOnCanvas(GraphicsContext context) throws CloneException {
         context.clearRect(0, 0, 450, 450);
         for (int row = 0; row < 9; row++) {
             for (int col = 0; col < 9; col++) {
