@@ -1,7 +1,7 @@
 package pl.first.firstjava;
 
 public interface Dao<T> {
-    T read();
+    T read() throws FileException;
 
-    void write(T obj);
+    void write(T obj) throws FileException;
 }

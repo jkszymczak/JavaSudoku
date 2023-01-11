@@ -14,15 +14,20 @@ public class SudokuRow extends SudokuChecker {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        System.out.println();
-        SudokuRow clone = (SudokuRow) super.clone();
-        SudokuField[] forClone = new SudokuField[size];
-        for (int i = 0;i < field.size();i++) {
-            forClone[i] = new SudokuField(this.getFieldValue(i));
+    public Object clone() throws CloneException {
+        try {
+            SudokuRow clone = (SudokuRow) super.clone();
+            SudokuField[] forClone = new SudokuField[size];
+            for (int i = 0; i < field.size(); i++) {
+                forClone[i] = new SudokuField(this.getFieldValue(i));
+            }
+            clone.setField(forClone);
+            return clone;
+        } catch (CloneNotSupportedException e) {
+
+            throw new CloneException(SudokuRow.class.getSimpleName());
+
         }
-        clone.setField(forClone);
-        return clone;
     }
 }
 

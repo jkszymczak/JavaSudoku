@@ -11,38 +11,36 @@ import org.slf4j.LoggerFactory;
 public class FileSudokuBoardDao implements Dao<SudokuBoard> {
 
     private String filename;
-    private static final Logger logger = LoggerFactory.getLogger(FileSudokuBoardDao.class);
+    //private static final Logger logger = LoggerFactory.getLogger(FileSudokuBoardDao.class);
 
     public FileSudokuBoardDao(String filename) {
         this.filename = filename + ".txt";
     }
 
     @Override
-    public SudokuBoard read() {
+    public SudokuBoard read() throws DaoFileOperationException {
         SudokuBoard obj = null;
         try (FileInputStream fileInputStream = new FileInputStream(filename);
                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
             obj = (SudokuBoard) objectInputStream.readObject();
         } catch (ClassNotFoundException exception) {
-            System.out.println("Class Not Found");
-
-            throw new RuntimeException(exception);
+            String msg = FileSudokuBoardDao.class.getSimpleName();
+            throw new DaoFileOperationException(exception,msg);
         } catch (IOException exception) {
-            System.out.println("IO problem here");
-            logger.info("Example log from {}", FileSudokuBoardDao.class.getSimpleName());
-            throw new RuntimeException(exception);
+            String msg = FileSudokuBoardDao.class.getSimpleName();
+            throw new DaoFileOperationException(exception,msg);
         }
         return obj;
     }
 
     @Override
-    public void write(SudokuBoard obj) {
+    public void write(SudokuBoard obj) throws DaoFileOperationException {
         try (FileOutputStream fileOutputStream = new FileOutputStream(filename);
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
             objectOutputStream.writeObject(obj);
         } catch (IOException exception) {
-            throw new RuntimeException(exception);
+            String msg = FileSudokuBoardDao.class.getSimpleName();
+            throw new DaoFileOperationException(exception,msg);
         }
     }
-
 }

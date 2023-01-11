@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class SudokuBoard implements Serializable, Cloneable {
+public class SudokuBoard implements Serializable, Cloneable,AutoCloseable {
     // atributes
     private static int size = 9;
     SudokuSolver solver;
@@ -130,26 +130,20 @@ public class SudokuBoard implements Serializable, Cloneable {
         String printed = new String();
         for (int i = 0; i < size; i++) {
             if (i % 3 == 0) {
-                // System.out.print("*-------*-------*-------* \n");
                 printed += "*-------*-------*-------* \n";
 
             }
             for (int j = 0; j < size; j++) {
                 if (j == 0) {
-                    // System.out.print("| ");
                     printed += "| ";
                 }
-                // System.out.print(board[i][j] + " ");
                 printed += board[i][j].getFieldValue() + " ";
                 if (j % 3 == 2) {
-                    // System.out.print("| ");
                     printed += "| ";
                 }
             }
-            // System.out.println("");
             printed += "\n";
             if (i == size - 1) {
-                // System.out.print("*-------*-------*-------* \n");
                 printed += "*-------*-------*-------* \n";
             }
         }
@@ -189,14 +183,30 @@ public class SudokuBoard implements Serializable, Cloneable {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        SudokuBoard clonedSudokuBoard = new SudokuBoard();
+    public Object clone() throws CloneException {
+       final SudokuBoard clonedSudokuBoard = new SudokuBoard();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                clonedSudokuBoard.setField(i, j, (SudokuField) this.getField(i, j).clone());
+
+                try {
+
+                    clonedSudokuBoard.setField(i, j, (SudokuField) this.getField(i, j).clone());
+
+                    } catch (CloneNotSupportedException e) {
+
+                    String msg = SudokuField.class.getSimpleName();
+                    throw new CloneException(msg);
+
+                    }
+
             }
         }
         return clonedSudokuBoard;
         // return super.clone();
+    }
+
+    @Override
+    public void close() throws Exception {
+
     }
 }
