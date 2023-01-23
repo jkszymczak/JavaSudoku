@@ -1,0 +1,9 @@
+ 
+.sudoku-cell {
+    -fx-background-color: white;
+    -fx-padding: 5px;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-alignment: center;
+    -fx-font-size: 20px;
+}

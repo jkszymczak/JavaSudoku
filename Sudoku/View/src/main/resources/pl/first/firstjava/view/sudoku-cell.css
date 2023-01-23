@@ -1,0 +1,9 @@
+.grid-cell {
+   -fx-background-color: lightblue;
+   -fx-padding: 10px;
+   -fx-border-color: black;
+   -fx-border: 2px;
+       -fx-text-align: center;
+
+
+}
