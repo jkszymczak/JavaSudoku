@@ -11,7 +11,12 @@ public class FileException extends IOException {
     public FileException(Throwable cause,String msg) {
 
         super(cause);
-        logger.error("IO problem here " + msg);
+        try {
+            logger.error("IO problem here " + msg);
+        } catch (Exception e) {
+            throw new RuntimeWithLogsException(e);
+        }
+
 
     }
 }

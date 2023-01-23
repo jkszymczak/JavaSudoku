@@ -9,7 +9,10 @@ public class CloneException extends CloneNotSupportedException {
 
     public CloneException(String msg) {
         super(msg);
-        logger.error("Clone not supported " + msg);
-
+        try {
+            logger.error("Clone not supported " + msg);
+        } catch (Exception e) {
+            throw new RuntimeWithLogsException(e);
+        }
     }
 }

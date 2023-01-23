@@ -1,9 +1,8 @@
 package pl.first.firstjava;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SudokuBoardDaoFactoryTest {
     @Test
@@ -11,6 +10,13 @@ public class SudokuBoardDaoFactoryTest {
         SudokuBoardDaoFactory test = new SudokuBoardDaoFactory();
         assertNotNull(test.getFileDao("test"));
         SudokuBoardDaoFactory test1 = new SudokuBoardDaoFactory();
-        assertEquals(test1, test1);
+        assertNotEquals(test, test1);
+    }
+    @Test
+    void testGetDataDao() {
+        SudokuBoardDaoFactory test = new SudokuBoardDaoFactory();
+        assertNotNull(test.getData("test"));
+        SudokuBoardDaoFactory test1 = new SudokuBoardDaoFactory();
+        assertNotEquals(test, test1);
     }
 }

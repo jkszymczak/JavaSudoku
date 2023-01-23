@@ -48,8 +48,6 @@ public class SudokuColumnTest {
                 new SudokuField(0) });
         SudokuColumn test3 =  (SudokuColumn) test1.clone();
         test1.changeField(0,2);
-        System.out.println(test1.getFieldValue(0)); 
-        System.out.println(test3.getFieldValue(0)); 
         assertTrue(test1.getFieldValue(0)!=test3.getFieldValue(0));
     }
 }
