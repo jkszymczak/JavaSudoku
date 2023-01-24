@@ -9,15 +9,15 @@
 
 <Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" styleClass="base_pane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.first.firstjava.view.BoardController">
     <children>
-        <Label layoutX="573.0" layoutY="293.0" text="Poziom" />
+        <Label fx:id="difficultyLabel" layoutX="573.0" layoutY="293.0" text="difficultyLabel" />
       <Button fx:id="buttonEasy" layoutX="532.0" layoutY="311.0" mnemonicParsing="false" onAction="#easymode" prefHeight="26.0" prefWidth="127.0" text="btn.Easy" />
       <Button fx:id="buttonHard" layoutX="532.0" layoutY="363.0" mnemonicParsing="false" onAction="#hardmode" prefHeight="26.0" prefWidth="127.0" text="btn.Hard" />
       <Button fx:id="buttonMedium" layoutX="532.0" layoutY="337.0" mnemonicParsing="false" onAction="#mediummode" prefHeight="26.0" prefWidth="127.0" text="btn.Medium" />
-      <Label layoutX="561.0" layoutY="6.0" text="Język / Language" />
-      <Button layoutX="529.0" layoutY="439.0" mnemonicParsing="false" onMouseClicked="#read" text="Wczytaj" />
-      <Button layoutX="626.0" layoutY="439.0" mnemonicParsing="false" onMouseClicked="#save" text="Zapisz" />
-      <Button fx:id="buttonPL" layoutX="548.0" layoutY="30.0" mnemonicParsing="false" text="Polski" />
-      <Button layoutX="623.0" layoutY="30.0" mnemonicParsing="false" text="English" />
+      <Label fx:id="langLabel" layoutX="561.0" layoutY="6.0" text="labelLang" />
+      <Button fx:id="buttonLoad" layoutX="529.0" layoutY="439.0" mnemonicParsing="false" onMouseClicked="#read" text="loadButton" />
+      <Button fx:id="buttonSave" layoutX="626.0" layoutY="439.0" mnemonicParsing="false" onMouseClicked="#save" text="saveButton" />
+      <Button fx:id="buttonPL" layoutX="548.0" layoutY="30.0" mnemonicParsing="false" onAction="#langChangetoPL" text="Polski" />
+      <Button fx:id="buttonEN" layoutX="623.0" layoutY="30.0" mnemonicParsing="false" onAction="#langChangetoEN" text="English" />
       <GridPane fx:id="gridPane" gridLinesVisible="false" layoutX="22.0" layoutY="15.0" maxHeight="450.0" maxWidth="450.0" prefHeight="450.0" prefWidth="450.0" stylesheets="@sudoku-cell.css">
         <columnConstraints>
           <ColumnConstraints hgrow="NEVER" minWidth="50.0" prefWidth="50.0" />

@@ -1,3 +1,4 @@
+
 package pl.first.firstjava.view;
 
 
@@ -10,6 +11,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -24,6 +26,7 @@ import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 import pl.first.firstjava.*;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 
@@ -34,7 +37,9 @@ public class BoardController {
 
     private final StringConverter converter = new CustomConverter();
     private PopOutWindow popOutWindow = new PopOutWindow();
+    private Locale locale = new Locale("pl");
 
+    private ResourceBundle bundle = ResourceBundle.getBundle("pl.first.firstjava.view.Lang", locale);
     @FXML
     Button buttonEasy;
     @FXML
@@ -49,6 +54,14 @@ public class BoardController {
     GridPane gridPane;
     @FXML
     Button buttonAuthors;
+    @FXML
+    Button buttonLoad;
+    @FXML
+    Button buttonSave;
+    @FXML
+    Label difficultyLabel;
+    @FXML
+    Label langLabel;
 
 
 
@@ -158,6 +171,7 @@ public class BoardController {
 
     @FXML
     public void initialize() throws NoSuchMethodException {
+        langChangetoPL();
         //gridPane.getChildren().clear();
         generowaniePustej();
         rysowanie();
@@ -247,5 +261,34 @@ public class BoardController {
         sudokuBoard = new SudokuBoard();
     }
 
-
+    @FXML
+    private void langChangetoPL() {
+        locale = new Locale("pl");
+        bundle = ResourceBundle.getBundle("pl.first.firstjava.view.Lang", locale);
+        buttonEasy.setText(bundle.getString("btnEasy"));
+        buttonMedium.setText(bundle.getString("btnMedium"));
+        buttonHard.setText(bundle.getString("btnHard"));
+        buttonAuthors.setText(bundle.getString("btnAuthors"));
+        difficultyLabel.setText(bundle.getString("diffLbl"));
+        langLabel.setText(bundle.getString("langLbl"));
+        buttonLoad.setText(bundle.getString("loadBtn"));
+        buttonSave.setText(bundle.getString("saveBtn"));
+        buttonEN.setText(bundle.getString("btnEN"));
+        buttonPL.setText(bundle.getString("btnPL"));
+    }
+    @FXML
+    private void langChangetoEN() {
+        locale = new Locale("en");
+        bundle = ResourceBundle.getBundle("pl.first.firstjava.view.Lang", locale);
+        buttonEasy.setText(bundle.getString("btnEasy"));
+        buttonMedium.setText(bundle.getString("btnMedium"));
+        buttonHard.setText(bundle.getString("btnHard"));
+        buttonAuthors.setText(bundle.getString("btnAuthors"));
+        difficultyLabel.setText(bundle.getString("diffLbl"));
+        langLabel.setText(bundle.getString("langLbl"));
+        buttonLoad.setText(bundle.getString("loadBtn"));
+        buttonSave.setText(bundle.getString("saveBtn"));
+        buttonEN.setText(bundle.getString("btnEN"));
+        buttonPL.setText(bundle.getString("btnPL"));
+    }
 }
