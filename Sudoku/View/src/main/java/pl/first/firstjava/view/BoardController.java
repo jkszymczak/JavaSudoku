@@ -69,6 +69,8 @@ public class BoardController {
     public void difficulty(int lvl) throws CloneException {
         try {
             sudokuBoard = (SudokuBoard) generowanie().clone();
+            sudokuBoardSolved = (SudokuBoard) sudokuBoard.clone();
+
             DifficultyLevel probne = DifficultyLevel.Easy;
             probne.zeroFields(lvl, sudokuBoard);
 
@@ -208,11 +210,23 @@ public class BoardController {
                     throw new PropertyBuilderNoSuchMethodException();
                 }
                 textField.textProperty().bindBidirectional(fieldValueProperty[i][j], converter);
+                int finalJ = j;
+                int finalI = i;
                 textField.textProperty().addListener(new ChangeListener<String>() {
                     @Override
                     public void changed(ObservableValue<? extends String> observable, String previous, String current) {
                         if (!((current.matches("[1-9]")) || (current.equals("")))) {
                             textField.setText(previous);
+                        }
+                        if((current.matches("[1-9]")) && Integer.valueOf(current) != sudokuBoardSolved.get(finalI, finalJ)) {
+
+                            popOutWindow.messageBox("",
+                                    (bundle.getString("wrongValue")),
+                                    Alert.AlertType.INFORMATION);
+                            textField.setText(previous);
+                        }
+                        else if ((current.matches("[1-9]")) && Integer.valueOf(current) == sudokuBoardSolved.get(finalI, finalJ)){
+                            textField.setDisable(true);
                         }
                     }
                 });
@@ -222,24 +236,6 @@ public class BoardController {
                 gridPane.add(textField, j, i);
                 gridPane.setHalignment(textField, HPos.CENTER);
             }
-
-                /*if(sudokuBoard.get(i,j) == 0) {
-                    TextField textField = new TextField();
-                    textField.setMinSize(29, 29);
-                    textField.setMaxSize(29, 29);
-                    textField.setFont(Font.font(14));
-                    textField.setDisable(false);
-                    gridPane.add(textField, j, i);
-                    gridPane.setHalignment(textField, HPos.CENTER);
-
-                }
-                else {
-                    Label label = new Label(String.valueOf(sudokuBoard.get(i, j)));
-                    gridPane.add(label, j, i);
-                    gridPane.setHalignment(label, HPos.CENTER);
-                }*/
-
-
         }
     }
 
