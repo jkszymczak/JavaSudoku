@@ -9,6 +9,7 @@ import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -23,8 +24,7 @@ import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 import pl.first.firstjava.*;
 
-
-
+import java.util.ResourceBundle;
 
 
 public class BoardController {
@@ -33,6 +33,7 @@ public class BoardController {
     private JavaBeanIntegerProperty[][] fieldValueProperty = new JavaBeanIntegerProperty[9][9];
 
     private final StringConverter converter = new CustomConverter();
+    private PopOutWindow popOutWindow = new PopOutWindow();
 
     @FXML
     Button buttonEasy;
@@ -46,6 +47,8 @@ public class BoardController {
     Button buttonEN;
     @FXML
     GridPane gridPane;
+    @FXML
+    Button buttonAuthors;
 
 
 
@@ -232,7 +235,13 @@ public class BoardController {
         return sudokuBoard1;
     }
 
-
+    @FXML
+    public void authorsButton() {
+        ResourceBundle listBundle = ResourceBundle.getBundle("pl.first.firstjava.view.Authors");
+        popOutWindow.messageBox("",
+                (listBundle.getObject("1. ") + "\n" + listBundle.getObject("2. ")),
+                Alert.AlertType.INFORMATION);
+    }
 
     public void generowaniePustej() {
         sudokuBoard = new SudokuBoard();
