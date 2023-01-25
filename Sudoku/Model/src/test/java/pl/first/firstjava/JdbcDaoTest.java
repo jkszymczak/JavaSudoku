@@ -12,20 +12,17 @@ public class JdbcDaoTest {
 
     @Test
     void testRead() throws SQLException {
-        JdbcSudokuBoardDao testDao = new JdbcSudokuBoardDao("hope");
+        //JdbcSudokuBoardDao testDao = new JdbcSudokuBoardDao("hope");
         //utworz.createBoardTable();
         SudokuBoardDaoFactory testFactory = new SudokuBoardDaoFactory();
         SudokuBoard testBoard = new SudokuBoard();
-        //Dao <SudokuBoard> testDao;
-        //testDao = testFactory.getData("test");
+        Dao <SudokuBoard> testDao;
+        testDao = testFactory.getData("test");
 
         try{
-
-
-
-            testDao.write2(testBoard);
-            //SudokuBoard testBoard2 = testDao.read();
-            //assertEquals(testBoard, testBoard2);
+            testBoard.set(0,0,9);
+            //testDao.write(testBoard);
+            SudokuBoard test = testDao.read();
         }
         catch (Exception e){
            throw new SQLException(e);
