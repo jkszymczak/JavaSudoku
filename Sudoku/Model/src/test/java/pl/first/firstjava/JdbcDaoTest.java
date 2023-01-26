@@ -17,12 +17,14 @@ public class JdbcDaoTest {
         SudokuBoardDaoFactory testFactory = new SudokuBoardDaoFactory();
         SudokuBoard testBoard = new SudokuBoard();
         Dao <SudokuBoard> testDao;
-        testDao = testFactory.getData("test");
+        testDao = testFactory.getData("nowy2");
 
         try{
-            testBoard.set(0,0,9);
-            //testDao.write(testBoard);
-            SudokuBoard test = testDao.read();
+            testBoard.set(0,0,8);
+            testBoard.set(0,3,2);
+            testDao.write(testBoard);
+            //SudokuBoard test = testDao.read();
+            //System.out.println(test.get(0,0));
         }
         catch (Exception e){
            throw new SQLException(e);

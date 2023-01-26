@@ -97,8 +97,13 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard> {
         String sql = "INSERT INTO Board(name) VALUES(?)";
         try (Connection connection = DriverManager.getConnection(dataBase);
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            connection.setAutoCommit(false);
             pstmt.setString(1, boardName);
-            pstmt.executeUpdate();
+            int affected = pstmt.executeUpdate();
+            if (affected != 1) {
+                connection.rollback();
+            }
+            connection.commit();
 
 
         } catch (SQLException e) {
@@ -107,17 +112,25 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard> {
         sql = "INSERT INTO Field(row,column,value,board_id) VALUES(?,?,?,?)";
         try (Connection connection = DriverManager.getConnection(dataBase);
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            connection.setAutoCommit(false);
             findBoard();
             //pstmt = connection.prepareStatement(sql);
             for (int i = 0;i < size;i++) {
                 for (int j = 0;j < size;j++) {
+                    pstmt.addBatch();
                     pstmt.setInt(1,i);
                     pstmt.setInt(2,j);
                     pstmt.setInt(3,obj.get(i,j));
                     pstmt.setInt(4,boardID);
                     pstmt.executeUpdate();
+
+
                 }
+                pstmt.executeBatch();
             }
+            connection.commit();
+
+
         } catch (SQLException e) {
             throw new FileException(e,e.getMessage());
         }
@@ -130,15 +143,22 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard> {
             connection = DriverManager.getConnection(dataBase);
             String sql = "UPDATE Field SET value = ? where board_id=? AND row=? AND column=?";
             try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                connection.setAutoCommit(false);
                 for (int i = 0;i < size;i++) {
                     for (int j = 0;j < size;j++) {
+                        pstmt.addBatch();
                         pstmt.setInt(1, obj.get(i,j));
                         pstmt.setInt(2, boardID);
                         pstmt.setInt(3, i);
                         pstmt.setInt(4, j);
-                        pstmt.executeUpdate();
                     }
+                    pstmt.executeBatch();
                 }
+                connection.commit();
+
+            } catch (SQLException e) {
+                connection.rollback();
+                throw new FileException(e,e.getMessage());
             }
         } catch (SQLException e) {
             throw new FileException(e,e.getMessage());
@@ -147,6 +167,7 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard> {
                 if (connection != null) {
                     connection.close();
                 }
+
             } catch (SQLException ex) {
                 throw new FileException(ex,ex.getMessage());
             }
