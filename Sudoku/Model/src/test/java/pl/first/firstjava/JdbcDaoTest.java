@@ -1,35 +1,28 @@
 package pl.first.firstjava;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class JdbcDaoTest {
 
     @Test
-    void testRead() throws SQLException {
-        //JdbcSudokuBoardDao testDao = new JdbcSudokuBoardDao("hope");
-        //utworz.createBoardTable();
+    void testWriteRead() throws SQLException, FileException {
         SudokuBoardDaoFactory testFactory = new SudokuBoardDaoFactory();
         SudokuBoard testBoard = new SudokuBoard();
+        SudokuSolver solver = new BacktrackingSudokuSolver();
+        testBoard.solveGame(solver);
         Dao <SudokuBoard> testDao;
         testDao = testFactory.getData("nowy2");
-
         try{
-            testBoard.set(8,8,9);
-            System.out.println(testBoard.get(8,8));
-            testBoard.set(0,3,8);
             testDao.write(testBoard);
-
         }
         catch (Exception e){
            throw new SQLException(e);
         }
-
+        assertTrue(testBoard.equals(testDao.read()));
     }
 
     @Test
