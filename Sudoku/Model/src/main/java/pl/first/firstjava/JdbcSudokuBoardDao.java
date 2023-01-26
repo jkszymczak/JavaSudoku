@@ -12,7 +12,10 @@ import java.sql.Statement;
 
 public class JdbcSudokuBoardDao implements Dao<SudokuBoard> {
 
-    private final String dataBase = "jdbc:sqlite:../Database/db.db";
+    private final String dataBase =
+            "jdbc:sqlite:/home/kuba/Studia/"
+                    + "ProjektyStudia/Kompo/mb_cz_1800_02"
+                    + "/Sudoku/Database/db.db";
     private Connection connection;
     private ResultSet resultSet;
     private String boardName;
@@ -104,8 +107,6 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard> {
                 connection.rollback();
             }
             connection.commit();
-
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -114,23 +115,17 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard> {
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
             connection.setAutoCommit(false);
             findBoard();
-            //pstmt = connection.prepareStatement(sql);
             for (int i = 0;i < size;i++) {
                 for (int j = 0;j < size;j++) {
-                    pstmt.addBatch();
                     pstmt.setInt(1,i);
                     pstmt.setInt(2,j);
                     pstmt.setInt(3,obj.get(i,j));
                     pstmt.setInt(4,boardID);
-                    pstmt.executeUpdate();
-
-
+                    pstmt.addBatch();
                 }
                 pstmt.executeBatch();
             }
             connection.commit();
-
-
         } catch (SQLException e) {
             throw new FileException(e,e.getMessage());
         }
@@ -146,11 +141,11 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard> {
                 connection.setAutoCommit(false);
                 for (int i = 0;i < size;i++) {
                     for (int j = 0;j < size;j++) {
-                        pstmt.addBatch();
                         pstmt.setInt(1, obj.get(i,j));
                         pstmt.setInt(2, boardID);
                         pstmt.setInt(3, i);
                         pstmt.setInt(4, j);
+                        pstmt.addBatch();
                     }
                     pstmt.executeBatch();
                 }

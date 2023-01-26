@@ -20,35 +20,25 @@ public class JdbcDaoTest {
         testDao = testFactory.getData("nowy2");
 
         try{
-            testBoard.set(0,0,8);
-            testBoard.set(0,3,2);
+            testBoard.set(8,8,9);
+            System.out.println(testBoard.get(8,8));
+            testBoard.set(0,3,8);
             testDao.write(testBoard);
-            //SudokuBoard test = testDao.read();
-            //System.out.println(test.get(0,0));
+
         }
         catch (Exception e){
            throw new SQLException(e);
         }
 
     }
-    //@Disabled
-    //@Test
-    /*
+
+    @Test
+
     void testReadExceptions() {
         SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
         Dao<SudokuBoard> testDao;
         testDao = factory.getData("nothing");
-        assertThrowsExactly(DaoFileOperationException.class, () -> {testDao.read();});
-    }
-
-    @Test
-    void testWriteException() {
-        SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
-        Dao<SudokuBoard> testDao;
-        SudokuBoard testowe = new SudokuBoard();
-        testDao = factory.getData("/;;");
-        assertThrowsExactly(DaoFileOperationException.class, () -> {testDao.write(testowe);});
-
+        assertThrowsExactly(FileException.class, () -> {testDao.read();});
     }
     @Test
     void testIOExceptions() {
@@ -56,6 +46,6 @@ public class JdbcDaoTest {
         Dao<SudokuBoard> testDao;
         testDao = factory.getData("nothingv2");
         SudokuBoard testBoard = new SudokuBoard();
-        assertThrowsExactly(DaoFileOperationException.class, () -> {testDao.read();});
-    }*/
+        assertThrowsExactly(FileException.class, () -> {testDao.read();});
+    }
 }

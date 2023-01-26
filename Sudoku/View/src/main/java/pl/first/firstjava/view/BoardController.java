@@ -10,9 +10,7 @@ import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -20,13 +18,13 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 import pl.first.firstjava.*;
 
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -62,6 +60,12 @@ public class BoardController {
     Label difficultyLabel;
     @FXML
     Label langLabel;
+
+    @FXML
+    Button saveToData;
+
+    @FXML
+    Button loadFromData;
 
 
 
@@ -286,5 +290,58 @@ public class BoardController {
         buttonSave.setText(bundle.getString("saveBtn"));
         buttonEN.setText(bundle.getString("btnEN"));
         buttonPL.setText(bundle.getString("btnPL"));
+    }
+
+    @FXML
+    private void saveDataBase(){
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Zapisz do Bazy Danych");
+        dialog.setContentText("Podaj nazwe w bazie danych");
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(string ->{
+            SudokuBoardDaoFactory testFactory = new SudokuBoardDaoFactory();
+            Dao <SudokuBoard> testDao;
+            testDao = testFactory.getData(string);
+            try {
+                testDao.write(sudokuBoard);
+            } catch (FileException e) {
+
+            }
+        });
+    }
+    @FXML
+    private void loadDataBase(){
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Wczytaj z Bazy Danych");
+        dialog.setContentText("Podaj nazwe w bazie danych");
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(string ->{
+            SudokuBoardDaoFactory testFactory = new SudokuBoardDaoFactory();
+            Dao <SudokuBoard> testDao;
+            testDao = testFactory.getData(string);
+
+                try {
+                    sudokuBoard = testDao.read();
+                    BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
+                    sudokuBoardSolved = (SudokuBoard) sudokuBoard.clone();
+                    sudokuBoardSolved.solveGame(solver);
+                    gridPane.getChildren().clear();
+                    rysowanie();
+                } catch (CloneNotSupportedException e) {
+                    try {
+                        throw new CloneException(BoardController.class.getSimpleName());
+                    } catch (CloneException ex) {
+                        throw new RuntimeWithLogsException(ex);
+                    }
+                } catch (DaoFileOperationException | PropertyBuilderNoSuchMethodException e) {
+                    try {
+                        throw new DaoFileOperationException(e,BoardController.class.getSimpleName());
+                    } catch (DaoFileOperationException ex) {
+                        throw new RuntimeWithLogsException(ex);
+                    }
+                } catch (FileException e) {
+                    throw new RuntimeWithLogsException(e);
+                }
+        });
     }
 }

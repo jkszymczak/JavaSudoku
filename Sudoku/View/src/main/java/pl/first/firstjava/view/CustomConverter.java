@@ -13,8 +13,7 @@ public class CustomConverter extends StringConverter<Integer> {
     public Integer fromString(String string) {
         if (string.matches("[1-9]")) {
             return Integer.valueOf(string);
-        }
-        else {
+        } else {
             return 0;
         }
     }
