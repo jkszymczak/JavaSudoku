@@ -23,6 +23,33 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard> {
         this.boardName = fileName;
     }
 
+
+    public boolean findBoard() throws JdbcException, FileException {
+        try {
+            connection = DriverManager.getConnection(dataBase);
+            try (Statement stmt = connection.createStatement()) {
+                String sql = "SELECT ID FROM Board where name="
+                        + "\'" + boardName + "\'";
+                resultSet = stmt.executeQuery(sql);
+                if (!resultSet.isBeforeFirst()) {
+                    return false;
+                }
+                boardID = resultSet.getInt("ID");
+                return true;
+                }
+            } catch (SQLException e) {
+                throw new JdbcException(e.getMessage());
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException ex) {
+                throw new FileException(ex,ex.getMessage());
+            }
+        }
+    }
+
     @Override
     public SudokuBoard read() throws FileException {
         try {
@@ -32,9 +59,7 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard> {
                         + "\'" + boardName + "\'";
                 resultSet = stmt.executeQuery(sql);
                 if (!resultSet.next()) {
-                    //tu rzucic wyjatek z brakiem Board o takiej nazwie.
-                    System.out.println("nie ma takiej planszy");
-                    return null;
+                    throw new JdbcException("Board not found");
                 }
                 boardID = resultSet.getInt("ID");
                 sql = "SELECT row,column,value,board_id FROM Field where board_id="
@@ -42,9 +67,7 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard> {
                 resultSet = stmt.executeQuery(sql);
                 SudokuBoard obj = new SudokuBoard();
                 if (!resultSet.isBeforeFirst()) {
-                    //tu rzucic wyjatek z brakiem Field o powiazanych z board o danym id.
-                    System.out.println("nie ma takich fields");
-                    return null;
+                    throw new JdbcException("Fields not Found");
                 }
                 while (resultSet.next()) {
                     obj.set(resultSet.getInt("row"),
@@ -54,25 +77,92 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard> {
                 return obj;
 
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                throw new JdbcException(e.getMessage());
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            throw new FileException(e,e.getMessage());
         } finally {
             try {
                 if (connection != null) {
                     connection.close();
                 }
             } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+                throw new FileException(ex,ex.getMessage());
             }
         }
-        return null;
+    }
+
+    private void createNew(SudokuBoard obj) throws FileException {
+        String sql = "INSERT INTO Board(name) VALUES(?)";
+        try (Connection connection = DriverManager.getConnection(dataBase);
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, boardName);
+            pstmt.executeUpdate();
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        sql = "INSERT INTO Field(row,column,value,board_id) VALUES(?,?,?,?)";
+        try (Connection connection = DriverManager.getConnection(dataBase);
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            findBoard();
+            //pstmt = connection.prepareStatement(sql);
+            for (int i = 0;i < size;i++) {
+                for (int j = 0;j < size;j++) {
+                    pstmt.setInt(1,i);
+                    pstmt.setInt(2,j);
+                    pstmt.setInt(3,obj.get(i,j));
+                    pstmt.setInt(4,boardID);
+                    pstmt.executeUpdate();
+                }
+            }
+        } catch (SQLException e) {
+            throw new FileException(e,e.getMessage());
+        }
+
+    }
+
+    private void updateOld(SudokuBoard obj) throws FileException {
+
+        try {
+            connection = DriverManager.getConnection(dataBase);
+            String sql = "UPDATE Field SET value = ? where board_id=? AND row=? AND column=?";
+            try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                for (int i = 0;i < size;i++) {
+                    for (int j = 0;j < size;j++) {
+                        pstmt.setInt(1, obj.get(i,j));
+                        pstmt.setInt(2, boardID);
+                        pstmt.setInt(3, i);
+                        pstmt.setInt(4, j);
+                        pstmt.executeUpdate();
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new FileException(e,e.getMessage());
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException ex) {
+                throw new FileException(ex,ex.getMessage());
+            }
+        }
     }
 
     @Override
     public void write(SudokuBoard obj) throws FileException {
-
+        try {
+            if (findBoard()) {
+                updateOld(obj);
+            } else {
+                createNew(obj);
+            }
+        } catch (JdbcException e) {
+            throw new FileException(e,e.getMessage());
+        }
     }
 }
